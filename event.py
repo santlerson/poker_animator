@@ -143,7 +143,7 @@ class DelayEvent(Event):
             self.start_time = time
         elapsed = time - self.start_time
         if elapsed >= self.delay:
-            return COMPLETE, PERMANENT
+            return COMPLETE, TEMPORARY
         else:
             return CONTINUE, TEMPORARY
 
@@ -206,24 +206,24 @@ class DrawPotBox(SimultaniousDrawEvent):
 
 
 class DrawUserBox(SimultaniousDrawEvent):
-    def __init__(self, x, y):
+    def __init__(self, x, y, colour = constants.COMMUNITY_SLOTS_BORDER_COLOUR):
         super().__init__([
             DrawBoxEvent(x, y, constants.CARD_WIDTH, constants.CARD_HEIGHT + 1,
-                         constants.COMMUNITY_SLOTS_BORDER_COLOUR),
+                         colour),
             DrawBoxEvent(x + constants.CARD_WIDTH - 1, y, constants.CARD_WIDTH + 1, constants.CARD_HEIGHT + 1,
-                         constants.COMMUNITY_SLOTS_BORDER_COLOUR),
+                         colour),
             DrawBoxEvent(x + constants.USER_BET_AREA_X_OFFSET, y + constants.USER_BET_AREA_Y_OFFSET,
                          constants.USER_BET_AREA_WIDTH,
-                         constants.USER_BET_AREA_HEIGHT, constants.COMMUNITY_SLOTS_BORDER_COLOUR),
+                         constants.USER_BET_AREA_HEIGHT, colour),
             DrawBoxEvent(x + constants.USER_PROB_AREA_X_OFFSET, y + constants.USER_PROB_AREA_Y_OFFSET,
                          constants.USER_PROB_AREA_WIDTH, constants.USER_PROB_AREA_HEIGHT,
-                         constants.COMMUNITY_SLOTS_BORDER_COLOUR),
+                         colour),
             DrawBoxEvent(x + constants.USER_BAL_AREA_X_OFFSET, y + constants.USER_BAL_AREA_Y_OFFSET,
                          constants.USER_BAL_AREA_WIDTH, constants.USER_BAL_AREA_HEIGHT,
-                         constants.COMMUNITY_SLOTS_BORDER_COLOUR),
+                         colour),
             DrawBoxEvent(x + constants.USER_AVATAR_AREA_X_OFFSET, y + constants.USER_AVATAR_AREA_Y_OFFSET,
                          constants.USER_AVATAR_AREA_WIDTH, constants.USER_AVATAR_AREA_HEIGHT,
-                         constants.COMMUNITY_SLOTS_BORDER_COLOUR),
+                         colour),
 
         ])
 
@@ -307,3 +307,12 @@ class StaggeredEvent(Event):
             return COMPLETE, PERMANENT
         else:
             return CONTINUE, TEMPORARY
+
+class UserWaitEvent(DelayEvent):
+    def __init__(self, x, y, time):
+        super().__init__(time)
+        self.DrawUserBox = DrawUserBox(x, y, constants.USER_WAIT_COLOUR)
+
+    def draw(self, above_table, table, time):
+        self.DrawUserBox.draw(above_table, table, time)
+        return super().draw(above_table, table, time)

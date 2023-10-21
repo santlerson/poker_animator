@@ -4,7 +4,7 @@ import event
 import card_events
 import constants
 import res
-
+import random
 
 def get_inner_box(x, y, width, height, border_thickness=1):
     return x + border_thickness, y + border_thickness, width - (2 * border_thickness), height - (2 * border_thickness)
@@ -73,7 +73,8 @@ class UserBox:
             self.bet_amount = 0
         self.bet_amount += amount
         self.balance -= amount
-        return event.ConcatenationEvent([self.write_balance(self.balance),
+        return event.ConcatenationEvent([
+                                            self.write_balance(self.balance),
                                          event.GlideEvent(self.x + constants.USER_BAL_AREA_X_OFFSET +
                                                           constants.USER_BAL_AREA_WIDTH // 2 - res.chip_resource.get_width() // 2,
                                                           self.y + constants.USER_BAL_AREA_Y_OFFSET,
@@ -118,6 +119,9 @@ class UserBox:
                                                       constants.USER_BET_AREA_HEIGHT),
                                       constants.USER_BET_AREA_FONT_COLOUR,
                                       constants.BACKGROUND_COLOUR)
+
+    def get_wait_event(self, mean_wait_time):
+        return event.UserWaitEvent(self.x, self.y, random.expovariate(1/mean_wait_time))
 
 def deal_players(cards: List[Tuple[Tuple[int, int]]], user_boxes: List[UserBox]):
     card1_events = []

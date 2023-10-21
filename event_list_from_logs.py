@@ -141,6 +141,10 @@ def get_event_list_from_logs(log_path):
             for action in stage_json["actions"]:
                 if action.get("amount", -1)<0:
                     event_list.append(
+                        user_boxes[action["player"]].get_wait_event(constants.MAXIMAL_MEAN_WAIT_TIME*
+                                                                    constants.FOLD_WAIT_PERCENTAGE)
+                    )
+                    event_list.append(
                         user_boxes[action["player"]].muck_cards()
                     )
                     if probabilities:
@@ -153,6 +157,10 @@ def get_event_list_from_logs(log_path):
                     folded[action["player"]] = True
                 else:
                     if action["amount"]>0:
+                        event_list.append(
+                            user_boxes[action["player"]].get_wait_event((action["amount"] / (user_boxes[action["player"]].balance)
+                                                 ) * constants.MAXIMAL_MEAN_WAIT_TIME),
+                        )
                         event_list.append(
                             user_boxes[action["player"]].bet(action["amount"])
                         )
