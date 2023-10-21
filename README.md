@@ -14,7 +14,10 @@ Note: the passed framerate should be the same as `TARGET_FRAMERATE` in `constant
 ## Example
 
 
-https://github.com/santlerson/poker_animator/assets/56686478/936c02bc-d161-4d06-a72f-aaa72e85261b
+
+
+https://github.com/santlerson/poker_animator/assets/56686478/301cbf79-c431-406d-87dc-8d04d964e3eb
+
 
 
 
