@@ -127,13 +127,12 @@ def get_event_list_from_logs(log_path):
                         turn=False
                     )
                 )
-            probabilities = stage_json.get("probabilities", None)
+            probabilities = stage_json.get("initial_probabilities", None)
             if probabilities is not None:
-                this_time_probability = probabilities.pop(0)
                 event_list.append(
                     event.SimultaniousDrawEvent(
                         [
-                            ub.write_probability(this_time_probability[i])
+                            ub.write_probability(probabilities[i])
                             for i, ub in enumerate(user_boxes)
                         ]
                     )
@@ -147,11 +146,11 @@ def get_event_list_from_logs(log_path):
                     event_list.append(
                         user_boxes[action["player"]].muck_cards()
                     )
-                    if probabilities:
-                        this_time_probability = probabilities.pop(0)
+                    if action.get("new_probabilities", None) is not None:
+                        probabilities = action["new_probabilities"]
                         event_list.append(
                             event.SimultaniousDrawEvent(
-                                [ub.write_probability(this_time_probability[i]) for i, ub in enumerate(user_boxes)]
+                                [ub.write_probability(probabilities[i]) for i, ub in enumerate(user_boxes)]
                             )
                         )
                     folded[action["player"]] = True
