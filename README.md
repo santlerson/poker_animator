@@ -13,7 +13,13 @@ Note: the passed framerate should be the same as `TARGET_FRAMERATE` in `constant
 
 ## Example
 
-https://github.com/santlerson/poker_animator/assets/56686478/39526f8c-667a-44c9-8ca0-8066d924cfe4
+
+
+
+https://github.com/santlerson/poker_animator/assets/56686478/301cbf79-c431-406d-87dc-8d04d964e3eb
+
+
+
 
 ## Credits
 - Font: [Grand9K Pixel](https://www.dafont.com/grand9k-pixel.font) by [Jayvee D. Enaguas (Grand Chaos)](https://www.dafont.com/jayvee-d-enaguas.d2725)
