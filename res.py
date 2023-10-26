@@ -26,6 +26,7 @@ large_chip_resource = pygame.transform.scale(chip_resource, (chip_resource.get_w
 big_blind_resource = pygame.image.load("res/big_blind.bmp")
 small_blind_resource = pygame.image.load("res/small_blind.bmp")
 dealer_resource = pygame.image.load("res/dealer.bmp")
+default_avatars =[pygame.image.load("res/default_avatar.bmp")]
 CHIP_HEIGHT = chip_resource.get_height()
 
 CHIP_WIDTH = chip_resource.get_width()

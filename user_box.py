@@ -15,7 +15,10 @@ class UserBox:
         self.x = x
         self.y = y
         self.balance = starting_balance
-        self.avatar_resource = avatar_resource
+        if avatar_resource:
+            self.avatar_resource = avatar_resource
+        else:
+            self.avatar_resource = random.choice(res.default_avatars)
         self.card_deal_slot = 0
         self.bet_amount = None
 
